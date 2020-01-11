@@ -1,10 +1,11 @@
 from django.contrib import admin
+from django.contrib import messages
 from .models import Artist, Album, Genre, Song
 
 
 class SongStackedInline(admin.StackedInline):
     model = Song
-    extra = 5
+    extra = 3
 
 
 @admin.register(Album)
@@ -18,6 +19,26 @@ class AlbumModelAdmin(admin.ModelAdmin):
     list_filter = ['date_added', ]
     search_fields = ['title', 'artist', 'date_of_release']
     inlines = (SongStackedInline,)
+    actions = ['publish_albums', 'un_publish_albums']
+
+    @staticmethod
+    def pluralize(upd):
+        if upd == 1:
+            return "1 album"
+        else:
+            return "{total} albums".format(total=upd)
+
+    def publish_albums(self, request, queryset):
+        updated = queryset.update(published=True)
+        self.message_user(request, "{prefix} published".format(
+            prefix=self.pluralize(updated),
+        ))
+
+    def un_publish_albums(self, request, queryset):
+        updated = queryset.update(published=False)
+        self.message_user(request, "{prefix} un published".format(
+            prefix=self.pluralize(updated),
+        ), level=messages.WARNING)
 
 
 @admin.register(Song)
