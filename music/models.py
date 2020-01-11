@@ -81,7 +81,7 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse('music:genre', kwargs={
-            'slug': self.slug,
+            'genre_name': self.slug,
         })
 
 
