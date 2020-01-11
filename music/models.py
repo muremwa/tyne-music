@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Artist(models.Model):
@@ -27,6 +28,11 @@ class Artist(models.Model):
         self.slug = slugify(str(self.name) + "-" + str(self.pk))
         super().save()
 
+    def get_absolute_url(self):
+        return reverse('music:artist', kwargs={
+            'slug': self.slug,
+        })
+
 
 class Album(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -53,6 +59,11 @@ class Album(models.Model):
         self.slug = slugify(str(self.title))
         return super().save(args, kwargs)
 
+    def get_absolute_url(self):
+        return reverse('music:album', kwargs={
+            'slug': self.slug,
+        })
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=200)
@@ -67,6 +78,11 @@ class Genre(models.Model):
         # slug url
         self.slug = slugify(str(self.name))
         return super().save(args, kwargs)
+
+    def get_absolute_url(self):
+        return reverse('music:genre', kwargs={
+            'slug': self.slug,
+        })
 
 
 def upload_music_to(instance, filename):
@@ -94,3 +110,9 @@ class Song(models.Model):
     @property
     def artist(self):
         return self.album.artist
+
+    def get_absolute_url(self):
+        return "{album_url}#track-{track_number}".format(
+            track_number=self.track_number,
+            album_url=self.album.get_absolute_url(),
+        )
