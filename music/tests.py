@@ -56,8 +56,12 @@ class ModelsTestCase(TestCase):
         self.assertEqual(self.genre.get_absolute_url(), '/music/genre/{slug}/'.format(slug=self.genre.slug))
         self.assertEqual(
             self.song.get_absolute_url(),
-            '/music/album/{album_slug}/#track-{track_number}'.format(
+            '/music/album/{album_slug}/#track-{pk}-{track_number}'.format(
                 album_slug=self.song.album.slug,
                 track_number=self.song.track_number,
+                pk=self.song.pk,
             )
         )
+
+    def test_song_artist(self):
+        self.assertEqual(self.song.artist, self.artist)

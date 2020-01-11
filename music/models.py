@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.core.validators import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 class Artist(models.Model):
@@ -64,6 +66,10 @@ class Album(models.Model):
             'slug': self.slug,
         })
 
+    @property
+    def number_of_songs(self):
+        return self.song_set.all().count()
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=200)
@@ -112,7 +118,8 @@ class Song(models.Model):
         return self.album.artist
 
     def get_absolute_url(self):
-        return "{album_url}#track-{track_number}".format(
+        return "{album_url}#track-{pk}-{track_number}".format(
             track_number=self.track_number,
             album_url=self.album.get_absolute_url(),
+            pk=self.pk
         )

@@ -15,7 +15,7 @@ class AlbumModelAdmin(admin.ModelAdmin):
         ("Details", {"fields": ["cover", "date_of_release"]}),
         ("ADD", {"fields": ["published"]}),
     ]
-    list_display = ['title', 'artist', 'date_of_release', 'published']
+    list_display = ['title', 'artist', 'date_of_release', 'number_of_songs', 'published']
     list_filter = ['date_added', ]
     search_fields = ['title', 'artist', 'date_of_release']
     inlines = (SongStackedInline,)
