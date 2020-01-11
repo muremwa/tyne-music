@@ -64,7 +64,9 @@ class GenrePage(View):
         )
 
         # fetch some songs in the genre
-        songs = genre.song_set.all()[:20]   # limit to 20
+        songs = genre.song_set.filter(
+            album__published=True
+        )[:20]   # limit to 20
 
         # render the page
         return render(self.request, 'music/genre.html', {
