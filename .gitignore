@@ -1,0 +1,5 @@
+media/*
+.idea/*
+*.pyc
+db.sqlite3
+music/migrations/*
