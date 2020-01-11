@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Artist(models.Model):
@@ -20,9 +22,12 @@ class Artist(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # slug url TODO:: This needs to rectified as the initial saving has no pk
+        # save first in order to get the pk
+        super().save(args, kwargs)
+
+        # add the pk to the slug url
         self.slug = slugify(str(self.name) + "-" + str(self.pk))
-        return super().save(args, kwargs)
+        super().save()
 
 
 class Album(models.Model):
@@ -61,7 +66,7 @@ class Genre(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # slug url TODO:: No slug is saved initially
+        # slug url
         self.slug = slugify(str(self.name))
         return super().save(args, kwargs)
 
