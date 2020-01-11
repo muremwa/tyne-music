@@ -1,0 +1,8 @@
+<h1>Genre page</h1>
+<h2>{{ genre.name }}</h2>
+
+<ol>
+    {% for song in songs %}
+    <li>{{ song.title}} by {{ song.artist.name }}</li>
+    {% endfor %}
+</ol>
