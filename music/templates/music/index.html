@@ -28,7 +28,7 @@
                                 <li><i>genre to be added</i></li>
                             </ul>
                             <div class="col-4 play-par" data-toggle="tooltip" data-placement="bottom" title="play {{ album.title }} now">
-                                <a href="{{ album.get_absolute_url }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
+                                <a href="{{ album.play_now }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
                             </div>
                         </div>
                     </div>

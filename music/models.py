@@ -69,6 +69,8 @@ class Album(models.Model):
             'slug': self.slug,
         })
 
+    def play_now(self):
+        return self.song_set.order_by('track_number')[0].play_now()
     @property
     def number_of_songs(self):
         return self.song_set.count()
@@ -126,3 +128,6 @@ class Song(models.Model):
             album_url=self.album.get_absolute_url(),
             pk=self.pk
         )
+
+    def play_now(self):
+        return self.get_absolute_url() + "&play=true"
