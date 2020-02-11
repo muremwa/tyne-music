@@ -18,16 +18,16 @@
                     <img class="card-img-top" alt="cover for {{ album.title }}" src="{{ album.cover.url }}"/>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ album.title }}</h5>
+                    <h5 class="card-title"><a href="{{ album.get_absolute_url}}">{{ album.title }}</a></h5>
                     <hr>
                     <div class="card-text">
                         <div class="row">
-                            <ul class="col-6">
-                                <li>{{ album.artist }}</li>
+                            <ul class="col-8">
+                                <li><a href="{{ album.artist.get_absolute_url }}">{{ album.artist }}</a></li>
                                 <li>{{ album.date_of_release.year }}</li>
                                 <li><i>genre to be added</i></li>
                             </ul>
-                            <div class="col-6 play-par" data-toggle="tooltip" data-placement="bottom" title="play {{ album.title }} now">
+                            <div class="col-4 play-par" data-toggle="tooltip" data-placement="bottom" title="play {{ album.title }} now">
                                 <a href="{{ album.get_absolute_url }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
                             </div>
                         </div>

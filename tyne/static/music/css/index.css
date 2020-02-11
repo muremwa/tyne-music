@@ -20,6 +20,11 @@
     width: 100%;
 }
 
+.index-card a {
+    text-decoration: none;
+    color: unset;
+}
+
 .top:hover {
     overflow: visible;
 }
@@ -31,5 +36,5 @@
 
 .play-btn {
     cursor: pointer;
-    width: 50%;
+    width: 80%;
 }
