@@ -38,3 +38,11 @@
     cursor: pointer;
     width: 80%;
 }
+
+.genre .card-title {
+    text-align: center;
+}
+
+.genre .play-par {
+    width: 20%;
+}

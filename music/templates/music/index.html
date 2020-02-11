@@ -8,7 +8,7 @@
 
     <!-- All albums -->
     <div id="albums">
-        <h3>explore albums albums</h3>
+        <h3>explore albums</h3>
 
         <div class="row">
             {% for album in albums %}
@@ -35,6 +35,35 @@
                 </div>
             </div>
             <!-- End of album -->
+            {% endfor %}
+        </div>
+
+        <hr>
+    </div>
+
+
+    <!-- Genres -->
+    <div id="genres">
+        <h3>explore genres</h3>
+
+        <div class="row">
+            {% for genre in genres %}
+            <!-- A genre -->
+            <div class="card index-card genre">
+                <div class="top">
+                    <img class="card-img-top" alt="cover for {{ genre.name }}" src="{{ genre.image.url }}"/>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ genre.get_absolute_url}}">{{ genre.name }}</a></h5>
+                    <hr>
+                    <div class="card-text">
+                        <div class="play-par" data-toggle="tooltip" data-placement="bottom" title="play {{ genre.name }} songs now">
+                            <a href="{{ genre.get_absolute_url }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of genre -->
             {% endfor %}
         </div>
 
