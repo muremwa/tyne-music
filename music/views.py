@@ -14,14 +14,14 @@ class MusicIndex(View):
         genres = Genre.objects.all()
 
         # fetch some artists
-        artists = []
+        artists = set()
         for album in albums:
-            artists.append(album.artist)
+            artists.add(album.artist)
 
         return render(self.request, 'music/index.html', {
             'albums': albums,
             'genres': genres,
-            'artists': artists,
+            'artists': sorted(list(artists), key=lambda artist: artist.total_songs(), reverse=True),
         })
 
 
