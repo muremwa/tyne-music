@@ -8,7 +8,7 @@ from .models import Album, Artist, Genre
 class MusicIndex(View):
     def get(self, *args, **kwargs):
         # fetch some albums
-        albums = Album.objects.filter(published=True)
+        albums = Album.objects.filter(published=True).order_by('-date_added')
 
         # fetch some genres
         genres = Genre.objects.all()

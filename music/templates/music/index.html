@@ -1,1 +1,47 @@
-<h1>This is the index page</h1>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block home %}active{% endblock home %}
+{% block style %}<link href="{% static 'music/css/index.css' %}" type="text/css" rel="stylesheet">{% endblock style %}
+
+{% block content %}
+<div id="main" class="container-fluid">
+
+    <!-- All albums -->
+    <div id="albums">
+        <h3>explore albums albums</h3>
+
+        <div class="row">
+            {% for album in albums %}
+            <!-- An album -->
+            <div class="card index-card album">
+                <div class="top">
+                    <img class="card-img-top" alt="cover for {{ album.title }}" src="{{ album.cover.url }}"/>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.title }}</h5>
+                    <hr>
+                    <div class="card-text">
+                        <div class="row">
+                            <ul class="col-6">
+                                <li>{{ album.artist }}</li>
+                                <li>{{ album.date_of_release.year }}</li>
+                                <li><i>genre to be added</i></li>
+                            </ul>
+                            <div class="col-6 play-par" data-toggle="tooltip" data-placement="bottom" title="play {{ album.title }} now">
+                                <a href="{{ album.get_absolute_url }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of album -->
+            {% endfor %}
+        </div>
+
+        <hr>
+    </div>
+
+
+
+</div>
+{% endblock content %}

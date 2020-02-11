@@ -1,0 +1,35 @@
+#main {
+    padding: 2em;
+}
+
+.index-card {
+    margin: 1em;
+    /* min-width: 19%; */
+    /* max-width: 24%; */
+    max-width: 15em;
+    background: #38383d;
+}
+
+.top {
+    width: 100%;
+    height: 11em;
+    overflow: hidden;
+}
+
+.index-card > img {
+    width: 100%;
+}
+
+.top:hover {
+    overflow: visible;
+}
+
+
+.play-par {
+    margin: auto;
+}
+
+.play-btn {
+    cursor: pointer;
+    width: 50%;
+}
