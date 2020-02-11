@@ -39,10 +39,10 @@
     width: 80%;
 }
 
-.genre .card-title {
+.artist .card-title, .genre .card-title {
     text-align: center;
 }
 
-.genre .play-par {
+.artist .play-par, .genre .play-par {
     width: 20%;
 }

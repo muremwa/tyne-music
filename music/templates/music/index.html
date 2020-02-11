@@ -70,6 +70,35 @@
         <hr>
     </div>
 
+    <!-- Artists -->
+    <div id="artists">
+        <h3>explore artists</h3>
+
+        <div class="row">
+            {% for artist in artists %}
+            <!-- An artist -->
+            <div class="card index-card artist">
+                <div class="top">
+                    <img class="card-img-top" alt="cover for {{ artist.name }}" src="{{ artist.avi.url }}"/>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ artist.get_absolute_url}}">{{ artist.name }}</a></h5>
+                    <hr>
+                    <div class="card-text text-center">
+                        <span>{{ artist.total_songs }} songs on playlist</span>
+                        <div class="play-par" data-toggle="tooltip" data-placement="bottom" title="listen to {{ artist.name }} now">
+                            <a href="{{ artist.get_absolute_url }}"><img class="play-btn" src="{% static 'svg/play-circle.svg' %}" alt="play-button"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of artist -->
+            {% endfor %}
+        </div>
+
+        <hr>
+    </div>
+
 
 
 </div>

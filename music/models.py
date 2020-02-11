@@ -28,6 +28,11 @@ class Artist(models.Model):
         self.slug = slugify(str(self.name) + "-" + str(self.pk))
         super().save()
 
+    def total_songs(self):
+        return sum(
+            [album.number_of_songs for album in list(self.album_set.all())]
+        )
+
     def get_absolute_url(self):
         return reverse('music:artist', kwargs={
             'slug': self.slug,
@@ -66,7 +71,7 @@ class Album(models.Model):
 
     @property
     def number_of_songs(self):
-        return self.song_set.all().count()
+        return self.song_set.count()
 
 
 class Genre(models.Model):
