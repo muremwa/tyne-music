@@ -69,8 +69,12 @@ class Album(models.Model):
             'slug': self.slug,
         })
 
+    def get_clean_release_date(self):
+        return self.date_of_release.strftime("%B %d, %Y")
+
     def play_now(self):
         return self.song_set.order_by('track_number')[0].play_now()
+        
     @property
     def number_of_songs(self):
         return self.song_set.count()
@@ -118,9 +122,6 @@ class Song(models.Model):
             title=self.title
         )
 
-    @property
-    def artist(self):
-        return self.album.artist
 
     def get_absolute_url(self):
         return "{album_url}#track-{pk}-{track_number}".format(
@@ -129,5 +130,14 @@ class Song(models.Model):
             pk=self.pk
         )
 
+
     def play_now(self):
         return self.get_absolute_url() + "&play=true"
+
+    @property
+    def artist(self):
+        return self.album.artist
+
+    @property
+    def genre(self):
+        return self.genres.all()[0]

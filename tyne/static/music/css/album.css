@@ -1,0 +1,44 @@
+#album-info {
+    text-align: center;
+}
+
+#top-heading a:hover {
+    text-decoration: none;
+}
+
+#cover-image {
+    max-height: 60vh;
+    max-width: 100%;
+}
+
+#more-info {
+    margin-top: 5em;
+    text-align: left;
+}
+
+.song {
+    border: 1px solid rgb(180, 156, 156);
+    border-radius: 5px;
+    padding: 1em;
+    height: 4em;
+    overflow: hidden;
+    margin-top: 1em;
+}
+
+.song li {
+    display: inline;
+    padding: 1.6em;
+}
+
+.song-name-name {
+    width: 40%;
+}
+
+.song-play-button:hover {
+    background-color: darkslategray;
+    cursor: pointer;
+}
+
+.song-genre a:hover {
+    text-decoration: none;
+}

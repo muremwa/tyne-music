@@ -1,2 +1,49 @@
-<h1>Album's page</h1>
-<h2>{{ album.title }}</h2>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ album.title }} ({{ album.date_of_release.year }}) - Album{% endblock title %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'music/css/album.css' %}">{% endblock style %}
+
+{% block content %}
+
+ <div class="container">
+        <h2 id="top-heading" class="text-center">{{ album.title }} by <a href="{{ album.artist.get_absolute_url }}">{{ album.artist.name }}</a></h2>
+     <div class="row">
+         <!-- Album ifno -->
+         <div id="album-info" class="col-md-5">
+            <img id="cover-image" src="{{ album.cover.url }}" alt="cover image for {{ album.title }}">
+
+            <ul id="more-info">
+                <li>Released {{ album.get_clean_release_date }}</li>
+                <li>{{ album.number_of_songs }} songs on the the album</li>
+                <hr>
+                <li>More info<br />{{ album.description }}</li>
+            </ul>
+
+         </div>
+
+         <!-- Albums songs -->
+         <div id="songs" class="col-md-7">
+            <h3 class="text-center">all songs</h3>
+
+            {% for song in album.song_set.all %}
+                <!-- one song -->
+                <div class="song">
+                    <ul>
+                        <li class="song-name"><span class="song-name-name">{{ song.title }}</span></li>
+                        <li class="song-play-button" data-toggle="tooltip" data-placement="top" title="play">
+                            <img src="{% static 'svg/play_arrow.svg' %}" alt="play button">
+                        </li>
+                        <li class="song-genre">
+                            <a href="{{ song.genre.get_absolute_url }}">{{ song.genre }}</a>
+                        </li>
+                        <li class="song-name">4:30</li>
+                    </ul>
+                </div>            
+            {% endfor %}
+
+         </div>
+
+     </div>
+ </div>
+
+{% endblock content %}
