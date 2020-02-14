@@ -36,7 +36,7 @@
                         <li class="song-genre">
                             <a href="{{ song.genre.get_absolute_url }}">{{ song.genre }}</a>
                         </li>
-                        <li class="song-name">4:30</li>
+                        <li class="song-name">{{ song.length }}</li>
                     </ul>
                 </div>            
             {% endfor %}

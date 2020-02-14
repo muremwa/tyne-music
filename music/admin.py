@@ -47,7 +47,7 @@ class SongModelAdmin(admin.ModelAdmin):
         ("Info", {"fields": ["track_number", "title", "album"]}),
         ("Details", {"fields": ["file", "year", "genres"]}),
     ]
-    list_display = ['track_number', "title", "album"]
+    list_display = ['track_number', "title", "length", "album"]
     list_filter = ['album', ]
     search_fields = ['title', 'album', 'genres']
 
