@@ -123,14 +123,12 @@ class Song(models.Model):
             title=self.title
         )
 
-
     def get_absolute_url(self):
         return "{album_url}#track-{pk}-{track_number}".format(
             track_number=self.track_number,
             album_url=self.album.get_absolute_url(),
             pk=self.pk
         )
-
 
     def play_now(self):
         return self.get_absolute_url() + "&play=true"
