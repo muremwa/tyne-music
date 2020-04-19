@@ -1,2 +1,59 @@
-<h1>Artist Page</h1>
-<h2>{{ artist.name }}</h2>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}{{ artist.name }} - Artist{% endblock title %}
+{% block style %}<link href="{% static 'music/css/artist.css' %}" type="text/css" rel="stylesheet">{% endblock style %}
+
+{% block content %}
+
+<div id="artist-main">
+    <div class="container">
+        <h1 class="text-center">{{ artist.name }}</h1>
+        <div class="row">
+            <!-- Artist info -->
+            <div class="col-md-6">
+                <img src="{{ artist.avi.url }}" alt="artist image" id="artist-image">
+                <ul class="artist-info">
+                    <li>from {{ artist.country }}</li>
+                    <li>born {{ artist.date_of_birth }}</li>
+                </ul>
+            </div>
+
+            <!-- Artist activity -->
+            <div class="col-md-6">
+                
+                <div id="a-albums">
+                    <h3>Albums</h3>
+                    {% for album in albums %}
+                    <!-- single album -->
+                    <div class="a-album">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{ album.cover.url }}" alt="{{ album.title }} cover" class="a-album-cover">
+                            </div>
+                            <div class="col-md-6 more-al">
+                                <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+                                <br />
+                                <span>{{ album.date_of_release.year }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of single album -->
+                    {% endfor %}
+                </div>
+
+                <div id="genres">
+                    <h3>genres</h3>
+                    <div class="row genre">
+                        {% for genre in genres %}
+                        <a class="col-xs=1" href="{{ genre.get_absolute_url }}">{{ genre.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

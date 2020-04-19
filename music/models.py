@@ -44,7 +44,7 @@ class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     description = models.TextField(help_text="Some details behind the conception of the album")
     date_of_release = models.DateField()
-    date_added = models.DateTimeField(auto_now=True)
+    date_added = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False, help_text="This should be marked true if the album is ready")
     slug = models.SlugField(blank=True, unique=True)
     cover = models.ImageField(

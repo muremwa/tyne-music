@@ -1,0 +1,57 @@
+#artist-image {
+    max-height: 60vh;
+}
+
+.artist-info > li {
+    border: 1px solid cadetblue;
+    border-radius: 3px;
+    width: 60%;
+    margin-top: 1em;
+    padding: 1em;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.artist-info > li:hover {
+    background-color: rgb(93, 94, 97);
+}
+
+.more-al * {
+    margin-top: 2em;
+}
+
+.a-album {
+    border: 1px solid cadetblue;
+    border-radius: 3px;
+    height: 10em;
+    margin-top: 1em;
+}
+
+
+.a-album-cover {
+    height: 10em;
+}
+
+
+#genres {
+    margin-top: 3em;
+    /* border: 1px solid yellow; */
+}
+
+#genres > .row {
+    padding: 2em;
+}
+
+.genre a {
+    border: 1px solid cadetblue;
+    border-radius: 40px;
+    padding: 1.2em;
+    margin: 0.5em;
+    transition: 0.2s;
+}
+
+.genre a:hover {
+    text-decoration: none;
+    color: #007bff;
+    background-color: #444449;
+}

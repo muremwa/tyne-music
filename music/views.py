@@ -1,3 +1,6 @@
+from functools import reduce
+from operator import concat
+
 from django.shortcuts import render, get_object_or_404
 from django.views import View, generic
 from django.http import Http404
@@ -47,11 +50,19 @@ class ArtistPage(generic.DetailView):
     slug_url_kwarg = 'slug'
     template_name = 'music/artist.html'
 
+    @staticmethod
+    def get_genres(albums):
+        genres = [[song.genre for song in album.song_set.all()] for album in albums]
+        # concat the list of genres
+        genres = reduce(concat, genres)
+        return set(genres)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         # albums by this artist
         artist = context.get('artist', None)
         context['albums'] = artist.album_set.filter(published=True)
+        context['genres'] = self.get_genres(context['albums'])
         return context
 
 
