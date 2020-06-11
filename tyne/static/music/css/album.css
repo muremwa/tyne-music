@@ -23,22 +23,39 @@
     height: 4em;
     overflow: hidden;
     margin-top: 1em;
+    display: flex;
+    flex-direction: row;
 }
 
-.song li {
-    display: inline;
-    padding: 1.6em;
+.song-name {
+    width: 50%;
 }
 
-.song-name-name {
-    width: 40%;
+.song-play-button {
+    width: 10%;
+    display: flex;
+    justify-content: center;
 }
 
-.song-play-button:hover {
+
+.play-btn-song:hover {
     background-color: darkslategray;
     cursor: pointer;
+}
+
+
+.song-genre {
+    width: 20%;
 }
 
 .song-genre a:hover {
     text-decoration: none;
 }
+
+.song-length {
+    width: 20%;
+}
+
+/* * {
+    border: 1px solid blue;
+} */

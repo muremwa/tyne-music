@@ -28,16 +28,14 @@
             {% for song in album.song_set.all %}
                 <!-- one song -->
                 <div class="song">
-                    <ul>
-                        <li class="song-name"><span class="song-name-name">{{ song.title }}</span></li>
-                        <li class="song-play-button" data-toggle="tooltip" data-placement="top" title="play">
-                            <img src="{% static 'svg/play_arrow.svg' %}" alt="play button">
-                        </li>
-                        <li class="song-genre">
-                            <a href="{{ song.genre.get_absolute_url }}">{{ song.genre }}</a>
-                        </li>
-                        <li class="song-name">{{ song.length }}</li>
-                    </ul>
+                    <span class="song-name"><span class="song-name-name">{{ song.title }}</span></span>
+                    <span class="song-play-button">
+                        <img class="play-btn-song" src="{% static 'svg/play_arrow.svg' %}" alt="play button" data-toggle="tooltip" data-placement="top" title="play">
+                    </span>
+                    <span class="song-genre">
+                        <a href="{{ song.genre.get_absolute_url }}">{{ song.genre }}</a>
+                    </span>
+                    <span class="song-length">{{ song.length }}</span>
                 </div>            
             {% endfor %}
 
