@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib import messages
-from .models import Artist, Album, Genre, Song
+
+from .models import Artist, Album, Genre, Song, Category
+from .forms import AlbumCategoryModelForm, ArtistCategoryModelForm, CategoryModelForm
 
 
 class SongStackedInline(admin.StackedInline):
@@ -50,6 +52,21 @@ class SongModelAdmin(admin.ModelAdmin):
     list_display = ['track_number', "title", "length", "album"]
     list_filter = ['album', ]
     search_fields = ['title', 'album', 'genres']
+
+
+@admin.register(Category)
+class CategoryModelAdmin(admin.ModelAdmin):
+    list_display = ['title', 'album_category']
+
+    def get_form(self, request, obj: Category=None, change=False, **kwargs):
+        form = CategoryModelForm
+        if obj:
+            if obj.album_category:
+                form = AlbumCategoryModelForm
+            else:
+                form = ArtistCategoryModelForm
+
+        return form
 
 
 admin.site.register(Artist)
