@@ -159,7 +159,6 @@ class Category(models.Model):
         category_items = self.album_items
         if not self.album_category:
             category_items = self.artist_items
-
         return category_items
 
     def __str__(self):
