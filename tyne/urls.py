@@ -9,6 +9,9 @@ urlpatterns = [
 
     # /music/
     path('music/', include('music.urls')),
+
+    # /api/
+    path('api/', include('api.urls'))
 ]
 
 
