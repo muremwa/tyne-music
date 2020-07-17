@@ -12,4 +12,7 @@ urlpatterns = [
     # categories/
     path('categories/', api_views.FetchCategories.as_view(), name='fetch-categories'),
 
+    # albums/
+    path('albums/', api_views.FetchAlbums.as_view(), name='fetch-albums'),
+
 ]

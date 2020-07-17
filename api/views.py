@@ -1,10 +1,11 @@
-from rest_framework.views import APIView, Response
+from django.shortcuts import get_object_or_404
+from rest_framework import views
 
 from music.models import Album, Artist, Genre, Category
 from .serializers import AlbumSerializer, ArtistSerializer, GenreSerializer, CategorySerializer
 
 
-class HomeData(APIView):
+class HomeData(views.APIView):
 
     @staticmethod
     def get(*args):
@@ -27,14 +28,15 @@ class HomeData(APIView):
             read_only=True
         ).data
 
-        return Response({
+        return views.Response({
             'albums': albums,
             'artists': artists,
             'genres': genres
         })
 
 
-class FetchCategories(APIView):
+class FetchCategories(views.APIView):
+    """ get categories add 'for' as a query to get album or artist specific categories i.e. for=album or for=artist"""
 
     @staticmethod
     def get(request):
@@ -48,8 +50,24 @@ class FetchCategories(APIView):
 
         js_categories = CategorySerializer(categories, many=True, read_only=True).data
 
-        print(js_categories)
-
-        return Response({
+        return views.Response({
             'categories': js_categories
         })
+
+
+class FetchAlbums(views.APIView):
+    """ Fetch albums or an album. To fetch a single album, pass album-slug='slug' into the query """
+    @staticmethod
+    def get(request):
+        data = {}
+        album_slug = request.GET.get('album-slug', None)
+
+        if album_slug:
+            album = get_object_or_404(Album, slug=album_slug)
+            data['album'] = AlbumSerializer(instance=album, read_only=True).data
+
+        else:
+            albums = Album.objects.all()
+            data['albums'] = AlbumSerializer(instance=albums, many=True, read_only=True, no_songs=True).data
+
+        return views.Response(data)
