@@ -1,11 +1,18 @@
 from django.urls import path
+from rest_framework_swagger.views import get_swagger_view
 
 from . import views as api_views
 
 app_name = 'api'
 
 
+schema_view = get_swagger_view(title='Tyne Music Api')
+
+
 urlpatterns = [
+    # docs/
+    path('', schema_view, name='docs'),
+
     # /home-data/
     path('home-data/', api_views.HomeData.as_view(), name='home-data'),
 
