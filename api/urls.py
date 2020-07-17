@@ -15,4 +15,7 @@ urlpatterns = [
     # albums/
     path('albums/', api_views.FetchAlbums.as_view(), name='fetch-albums'),
 
+    # albums/invasion-of-privacy/
+    path('albums/<slug:album_slug>/', api_views.FetchAlbum.as_view(), name='get-album'),
+
 ]
