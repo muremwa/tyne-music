@@ -34,8 +34,6 @@ class AlbumSerializer(serializers.ModelSerializer):
 
         super(AlbumSerializer, self).__init__(*args, **kwargs)
 
-        print(self.fields)
-
         if no_songs:
             self.fields['songs'] = serializers.URLField(source='songs_url')
 
