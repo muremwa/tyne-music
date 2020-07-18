@@ -28,6 +28,10 @@ class Artist(models.Model):
         self.slug = slugify(str(self.name) + "-" + str(self.pk))
         super().save()
 
+    @property
+    def dob(self):
+        return self.date_of_birth.strftime('%B %d, %Y')
+
     def total_songs(self):
         return sum(
             [album.number_of_songs for album in list(self.album_set.all())]
@@ -68,6 +72,10 @@ class Album(models.Model):
         return reverse('music:album', kwargs={
             'slug': self.slug,
         })
+
+    @property
+    def year(self):
+        return self.date_of_release.strftime('%Y')
 
     def get_clean_release_date(self):
         return self.date_of_release.strftime("%B %d, %Y")
