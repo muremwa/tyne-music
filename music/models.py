@@ -42,6 +42,9 @@ class Artist(models.Model):
             'slug': self.slug,
         })
 
+    def get_absolute_api_url(self):
+        return reverse("api:get-artist", kwargs={"artist_slug": str(self.slug)})
+
 
 class Album(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -72,6 +75,13 @@ class Album(models.Model):
         return reverse('music:album', kwargs={
             'slug': self.slug,
         })
+    
+    def get_absolute_api_url(self):
+        return reverse("api:get-album", kwargs={"album_slug": str(self.slug)})
+    
+    @property
+    def songs_url(self):
+        return reverse("api:fetch-album-songs", kwargs={"album_slug": str(self.slug)})
 
     @property
     def year(self):
@@ -106,6 +116,9 @@ class Genre(models.Model):
         return reverse('music:genre', kwargs={
             'genre_name': self.slug,
         })
+
+    def get_absolute_api_url(self):
+        return reverse("api:get-genre", kwargs={"genre_slug": str(self.slug)})
 
 
 def upload_music_to(instance, filename):

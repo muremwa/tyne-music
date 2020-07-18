@@ -11,7 +11,7 @@ from .serializers import AlbumSerializer, ArtistSerializer, GenreSerializer, Cat
 class HomeData(views.APIView):
 
     @staticmethod
-    def get(*args):
+    def get(request):
         albums = AlbumSerializer(
             instance=Album.objects.all(),
             many=True,
