@@ -53,12 +53,15 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    category_title = serializers.CharField(source='title')
+    category_description = serializers.CharField(source='description')
+    category_avi = serializers.ImageField(source='avi')
     artist_items = ArtistSerializer(many=True, read_only=True)
     album_items = AlbumSerializer(many=True, read_only=True, no_songs=True)
 
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ('id', 'title', 'description', 'avi',)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
