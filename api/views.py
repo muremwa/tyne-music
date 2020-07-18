@@ -1,6 +1,7 @@
 import datetime
 import re
 
+from django.shortcuts import get_object_or_404
 from rest_framework import views, generics
 
 from music.models import Album, Artist, Genre, Category
@@ -38,7 +39,7 @@ class HomeData(views.APIView):
 
 
 class FetchCategories(views.APIView):
-    """ get categories add 'for' as a query to get album or artist specific categories i.e. for=album or for=artist"""
+    """get categories add 'for' as a query to get album or artist specific categories i.e. for=album or for=artist"""
 
     @staticmethod
     def get(request):
@@ -90,7 +91,7 @@ class FetchAlbums(views.APIView):
         return valid
 
     def time_filter(self, q_set, params):
-        """ date_of_release time filters """
+        """date_of_release time filters"""
 
         for key, item in params.items():
             if self.is_time_format_valid(item):
@@ -136,7 +137,54 @@ class FetchAlbums(views.APIView):
 
 
 class FetchAlbum(generics.RetrieveAPIView):
+    """Fetch a single album using it's slug"""
     queryset = Album.objects.filter(published=True)
     serializer_class = AlbumSerializer
     lookup_field = 'slug'
     lookup_url_kwarg = 'album_slug'
+
+
+class FetchArtists(generics.ListAPIView):
+    """Fetch all artists"""
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
+
+
+class FetchArtist(views.APIView):
+    """Fetch an individual artist. The payload includes their published albums. To exclude albums, use '?no-albums=1'"""
+
+    @staticmethod
+    def get(request, **kwargs):
+        artist_slug = kwargs.get('artist_slug')
+        _artist = get_object_or_404(Artist, slug=artist_slug)
+        artist = ArtistSerializer(
+            instance=_artist,
+            read_only=True
+        ).data
+
+        data = {'artist': artist}
+
+        if not int(request.GET.get('no-albums', False)):
+            data.update({
+                'albums': AlbumSerializer(
+                    instance=Album.objects.filter(published=True).filter(artist=_artist.pk),
+                    many=True,
+                    read_only=True,
+                    no_songs=True
+                ).data
+            })
+
+        return views.Response(data)
+
+
+class FetchGenres(generics.ListAPIView):
+    """Fetch multiple genres"""
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+
+class FetchGenre(generics.RetrieveAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    lookup_url_kwarg = 'genre_slug'
+    lookup_field = 'slug'

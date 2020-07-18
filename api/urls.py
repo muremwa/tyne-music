@@ -25,4 +25,17 @@ urlpatterns = [
     # albums/invasion-of-privacy/
     path('albums/<slug:album_slug>/', api_views.FetchAlbum.as_view(), name='get-album'),
 
+    # artists/
+    path('artists/', api_views.FetchArtists.as_view(), name='fetch-artists'),
+
+    # artists/ed-sheraan/
+    path('artists/<slug:artist_slug>/', api_views.FetchArtist.as_view(), name='get-artist'),
+
+    # genres/
+    path('genres/', api_views.FetchGenres.as_view(), name='fetch-genres'),
+
+    # genres/rb/
+    path('genres/<slug:genre_slug>/', api_views.FetchGenre.as_view(), name='get-genre'),
+
+
 ]
