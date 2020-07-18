@@ -4,8 +4,8 @@ import re
 from django.shortcuts import get_object_or_404
 from rest_framework import views, generics
 
-from music.models import Album, Artist, Genre, Category
-from .serializers import AlbumSerializer, ArtistSerializer, GenreSerializer, CategorySerializer
+from music.models import Album, Artist, Genre, Category, Song
+from .serializers import AlbumSerializer, ArtistSerializer, GenreSerializer, CategorySerializer, SongSerializer
 
 
 class HomeData(views.APIView):
@@ -188,3 +188,20 @@ class FetchGenre(generics.RetrieveAPIView):
     serializer_class = GenreSerializer
     lookup_url_kwarg = 'genre_slug'
     lookup_field = 'slug'
+
+
+class FetchAlbumSongs(views.APIView):
+
+    @staticmethod
+    def get(request, **kwargs):
+        album_slug = kwargs.get('album_slug')
+        songs = []
+
+        if album_slug:
+            songs = SongSerializer(
+                instance=Song.objects.filter(album__slug=album_slug),
+                many=True,
+                read_only=True
+            ).data
+
+        return views.Response(songs)

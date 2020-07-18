@@ -25,6 +25,9 @@ urlpatterns = [
     # albums/invasion-of-privacy/
     path('albums/<slug:album_slug>/', api_views.FetchAlbum.as_view(), name='get-album'),
 
+    # albums/invasion-of-privacy/songs/
+    path('albums/<slug:album_slug>/songs/', api_views.FetchAlbumSongs.as_view(), name='fetch-album-songs'),
+
     # artists/
     path('artists/', api_views.FetchArtists.as_view(), name='fetch-artists'),
 
@@ -36,6 +39,5 @@ urlpatterns = [
 
     # genres/rb/
     path('genres/<slug:genre_slug>/', api_views.FetchGenre.as_view(), name='get-genre'),
-
 
 ]

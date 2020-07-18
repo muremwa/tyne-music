@@ -123,6 +123,7 @@ class Song(models.Model):
     genres = models.ManyToManyField(Genre, verbose_name='Song\'s genres')
     file = models.FileField(upload_to=upload_music_to)
     length = models.CharField(help_text="in the form of 3:40", max_length=10, default="0:00")
+    objects = models.Manager()
 
     def __str__(self):
         return "{title} from {album} by {artist}".format(
